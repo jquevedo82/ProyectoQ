@@ -64,8 +64,8 @@
                                     <td class="px-6 py-4">
                                         {{ $post->texto }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        @if (auth()->check())
+                                    @if (auth()->check())
+                                        <td class="px-6 py-4">
                                             <a href="#" class="favorite-button"
                                                 data-post-id="{{ $post->id . '_' . auth()->id() }}">
                                                 @if (in_array($post->id, $favoritePostIds))
@@ -74,13 +74,31 @@
                                                     <i class="far fa-star text-yellow-500"></i>
                                                 @endif
                                             </a>
-                                        @endif
+                                        </td>
+                                        <div class="share-buttons">
+                                            <td class="px-6 py-4">
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                                                    target="_blank" rel="noopener noreferrer">
+                                                    <i class="fab fa-facebook"></i>
+                                                </a>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl() . '/' . $post->id) }}"
+                                                    target="_blank" rel="noopener noreferrer">
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <a href="https://www.linkedin.com/shareArticle?url={{ urlencode(request()->fullUrl())}}"
+                                                    target="_blank" rel="noopener noreferrer">
+                                                    <i class="fab fa-linkedin"></i>
+                                                </a>
+                                            </td>
 
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
+                                        </div>
+
+                                        </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">

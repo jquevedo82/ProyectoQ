@@ -42,11 +42,18 @@ class PostController extends Controller
 
         return to_route('posts.index');
     }
-    public function show(Post $post)
+    public function show($postId)
     {
-        //
+        $post = Post::find($postId);
+
+        if ($post) {
+            return view('posts.show', ['post' => $post]);
+        } else {
+
+            return view('post.show');
+        }
     }
-    public function getFavorites(Request $request) : View
+    public function getFavorites(Request $request): View
     {
         $favorites = json_decode($request->input('favorites'), true);
 
@@ -59,6 +66,6 @@ class PostController extends Controller
 
         $posts = Post::whereIn('id', $filteredPostIds)->get();
 
-         return view('posts.index', ['posts' => $posts]);
+        return view('posts.index', ['posts' => $posts]);
     }
 }
