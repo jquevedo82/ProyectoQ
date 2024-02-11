@@ -27,12 +27,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //metodo show para mostar el detalle de un recurso
 Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
     Route::post('/', [PostController::class, 'store'])->name('store');
 
     Route::post('/favorites', [PostController::class, 'getFavorites'])->name('getFavorites');
 });
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //metodo show para mostar el detalle de un recurso
 
 require __DIR__ . '/auth.php';
