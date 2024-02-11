@@ -55,7 +55,7 @@ class PostController extends Controller
     }
     public function getFavorites(Request $request): View
     {
-        $favorites = json_decode($request->input('favorites'), true);
+        $favorites = json_decode($request->input('favorites'), true) ?? [] ;
 
         $filteredPostIds = array_map(function ($favorite) {
             [$postId, $userId] = explode('_', $favorite);
@@ -74,6 +74,5 @@ class PostController extends Controller
         // Realizar la búsqueda de posts basada en el término de búsqueda
         $searchResults = Post::where('titulo', 'like', '%' . $query . '%')->get();
         return view('posts.search', ['posts' => $searchResults]);
-
     }
 }
