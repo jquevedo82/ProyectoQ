@@ -14,14 +14,19 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <form id="favorites-form" action="{{ route('posts.getFavorites') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="favorites" id="favorites-input">
-                        <button type="submit"
-                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Favoritos</button>
-                    </form>
-                    <a href="{{ route('posts.index') }}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Todos</a>
+                    @auth
+                        <input type="hidden" id="auth-user-id" value="{{ auth()->id() }}">
+                        @endauth @auth
+                        <input type="hidden" id="auth-user-id" value="{{ auth()->id() }}">
+                        <form id="favorites-form" action="{{ route('posts.getFavorites') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="favorites" id="favorites-input">
+                            <button type="submit"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Favoritos</button>
+                        </form>
+                        <a href="{{ route('posts.index') }}"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Todos</a>
+                    @endauth
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -60,14 +65,17 @@
                                         {{ $post->texto }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="favorite-button"
-                                            data-post-id="{{ $post->id . '_' . auth()->id() }}">
-                                            @if (auth()->check() && in_array($post->id, $favoritePostIds))
-                                                <i class="fas fa-star text-yellow-500"></i>
-                                            @else
-                                                <i class="far fa-star text-yellow-500"></i>
-                                            @endif
-                                        </a>
+                                        @if (auth()->check())
+                                            <a href="#" class="favorite-button"
+                                                data-post-id="{{ $post->id . '_' . auth()->id() }}">
+                                                @if (in_array($post->id, $favoritePostIds))
+                                                    <i class="fas fa-star text-yellow-500"></i>
+                                                @else
+                                                    <i class="far fa-star text-yellow-500"></i>
+                                                @endif
+                                            </a>
+                                        @endif
+
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="#"

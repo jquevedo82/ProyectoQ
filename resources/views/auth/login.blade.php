@@ -1,7 +1,8 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <a href="{{ route('posts.index') }}"
+    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Home</a>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
