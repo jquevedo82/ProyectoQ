@@ -77,7 +77,7 @@
                                         </td>
                                         <div class="share-buttons">
                                             <td class="px-6 py-4">
-                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl() . '/' . $post->id) }}"
                                                     target="_blank" rel="noopener noreferrer">
                                                     <i class="fab fa-facebook"></i>
                                                 </a>
@@ -89,7 +89,7 @@
                                                 </a>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <a href="https://www.linkedin.com/shareArticle?url={{ urlencode(request()->fullUrl())}}"
+                                                <a href="https://www.linkedin.com/shareArticle?url={{ urlencode(request()->fullUrl() . '/' . $post->id)}}"
                                                     target="_blank" rel="noopener noreferrer">
                                                     <i class="fab fa-linkedin"></i>
                                                 </a>
