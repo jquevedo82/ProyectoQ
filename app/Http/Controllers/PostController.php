@@ -71,7 +71,6 @@ class PostController extends Controller
     public function search(Request $request): View
     {
         $query = $request->input('query');
-        // Realizar la búsqueda de posts basada en el término de búsqueda
         $searchResults = Post::where('titulo', 'like', '%' . $query . '%')->get();
         return view('posts.search', ['posts' => $searchResults]);
     }
