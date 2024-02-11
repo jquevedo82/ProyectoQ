@@ -15,7 +15,7 @@
                                 <label for="titulo" class="block text-gray-700 text-sm font-bold mb-2">Titulo</label>
                                 <input id="titulo"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('title') border-red-500 @enderror"
-                                    type="text" name="titulo" placeholder="Write text here"
+                                    type="text" name="titulo" placeholder="Escriba Titulo aqui"
                                     value="{{ old('titulo') }}">
                                 @error('titulo')
                                     <p class="text-red-500">{{ $message }}</p>
@@ -25,7 +25,7 @@
                                 <label for="texto" class="block text-gray-700 text-sm font-bold mb-2">Texto</label>
                                 <textarea id="texto" name="texto"
                                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('body') border-red-500 @enderror"
-                                    placeholder="Write body test here" rows="5">{{ old('texto') }}</textarea>
+                                    placeholder="Escriba el Texto aqui" rows="5">{{ old('texto') }}</textarea>
                                 @error('texto')
                                     <p class="text-red-500">{{ $message }}</p>
                                 @enderror
