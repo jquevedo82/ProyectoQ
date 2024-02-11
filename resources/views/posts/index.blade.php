@@ -4,6 +4,7 @@
             {{ __('Posts Index') }}
         </h2>
     </x-slot>
+
     @php
         $favoritePostIds = [];
     @endphp
@@ -19,13 +20,13 @@
                                 @csrf
                                 <input type="hidden" name="favorites" id="favorites-input">
                                 <button type="submit"
-                                    class="bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 px-5 py-3 mt-4 w-full"
+                                    class="bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 px-5 py-3 mt-4 w-full hidden"
                                     id="toggle-favorites">
                                     Favoritos
                                 </button>
                             </form>
                             <a href="{{ route('posts.index') }}"
-                                class="bg-blue-800 text-center text-white font-bold text-sm uppercase rounded hover:bg-blue-700 px-5 py-3 mt-4 w-full sm:w-1/2 hidden"
+                                class="bg-blue-800 text-center text-white font-bold text-sm uppercase rounded hover:bg-blue-700 px-5 py-3 mt-4 w-full sm:w-1/2"
                                 id="toggle-all">
                                 Todos
                             </a>
@@ -48,21 +49,6 @@
 
                     @forelse ($posts as $post)
                         <article class="flex flex-col shadow my-4">
-                            <div class="relative">
-                                <img src="{{ asset('storage/img/' . $post->imagen) }}" class="w-full h-auto"
-                                    alt="Imagen del post">
-                                <button type="button"
-                                    class="absolute top-0 right-0 mt-2 mr-2 hover:opacity-75 favorite-button"
-                                    data-post-id="{{ $post->id . '_' . auth()->id() }}">
-                                    @if (auth()->check())
-                                        @if (in_array($post->id, $favoritePostIds))
-                                            <i class="fas fa-star text-black-500"></i>
-                                        @else
-                                            <i class="far fa-star text-black-500"></i>
-                                        @endif
-                                    @endif
-                                </button>
-                            </div>
                             <div class="bg-white flex flex-col justify-start p-6">
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="text-3xl font-bold hover:text-gray-700 pb-4">
@@ -72,6 +58,21 @@
                                 <a href="{{ route('posts.show', $post) }}"
                                     class="uppercase text-gray-800 hover:text-black">Continue Reading <i
                                         class="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div class="relative">
+                                <img src="{{ asset('storage/img/' . $post->imagen) }}" class="w-full h-auto"
+                                    alt="Imagen del post">
+                                <button type="button"
+                                    class="absolute top-0 right-0 mt-2 mr-2 hover:opacity-75 favorite-button"
+                                    data-post-id="{{ $post->id . '_' . auth()->id() }}">
+                                    @if (auth()->check())
+                                        @if (in_array($post->id, $favoritePostIds))
+                                            <i class="fas fa-heart text-red-500  text-3xl"></i>
+                                        @else
+                                            <i class="far fa-heart text-red-500  text-3xl"></i>
+                                        @endif
+                                    @endif
+                                </button>
                             </div>
                         </article>
                     @empty
@@ -99,10 +100,10 @@
                     var index = favorites.indexOf(postId);
                     if (index !== -1) {
                         favorites.splice(index, 1);
-                        this.innerHTML = '<i class="far fa-star text-black-500 "></i>';
+                        this.innerHTML = '<i class="far fa-heart text-red-500  text-3xl "></i>';
                     } else {
                         favorites.push(postId);
-                        this.innerHTML = '<i class="fas fa-star text-black-500"></i>';
+                        this.innerHTML = '<i class="fas fa-heart text-red-500  text-3xl"></i>';
                     }
 
                     localStorage.setItem('favorites', JSON.stringify(favorites));
@@ -135,8 +136,9 @@
             const allButton = document.getElementById('toggle-all');
             const favoritesButton = document.getElementById('toggle-favorites');
 
+
             // Recuperar el estado de los botones del almacenamiento local al cargar la página
-            const isFavoritesVisible = localStorage.getItem('isFavoritesVisible') === 'true';
+            const isFavoritesVisible = localStorage.getItem('isFavoritesVisible') === 'false';
 
             if (isFavoritesVisible) {
                 favoritesForm.classList.remove('hidden');
@@ -152,14 +154,14 @@
                 favoritesForm.classList.remove('hidden');
                 favoritesButton.classList.remove('hidden');
                 allButton.classList.add('hidden');
-                localStorage.setItem('isFavoritesVisible', 'true');
+                localStorage.setItem('isFavoritesVisible', 'false');
             });
 
             favoritesButton.addEventListener('click', function() {
                 allButton.classList.remove('hidden');
                 favoritesForm.classList.add('hidden');
                 favoritesButton.classList.add('hidden');
-                localStorage.setItem('isFavoritesVisible', 'false');
+                localStorage.setItem('isFavoritesVisible', 'true');
             });
         });
     </script>

@@ -14,9 +14,13 @@
                     @auth
                         <div class="flex flex-col sm:flex-row">
                             <input type="hidden" id="auth-user-id" value="{{ auth()->id() }}">
-                            <form action="{{ route('posts.search') }}" method="GET">
-                                <input type="text" name="query" id="query" placeholder="Buscar posts..." >
-                                <button type="submit">Buscar</button>
+                            <form action="{{ route('posts.search') }}" method="GET" class="flex">
+                                <input type="text" name="query" id="query" placeholder="Buscar posts..."
+                                    class="border border-gray-300 focus:outline-none focus:border-blue-500 rounded-l-md px-4 py-2 flex-grow">
+                                <button type="submit"
+                                    class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                                    Buscar
+                                </button>
                             </form>
                         </div>
                     @endauth
@@ -41,9 +45,9 @@
 
                                 @if (auth()->check())
                                     @if (in_array($post->id, $favoritePostIds))
-                                        <i class="fas fa-star text-black-500"></i>
+                                        <i class="fas fa-heart text-red-500  text-3xl"></i>
                                     @else
-                                        <i class="far fa-star text-black-500"></i>
+                                        <i class="far fa-heart text-red-500  text-3xl"></i>
                                     @endif
                                 @endif
                             </button>
@@ -75,10 +79,10 @@
                     var index = favorites.indexOf(postId);
                     if (index !== -1) {
                         favorites.splice(index, 1);
-                        this.innerHTML = '<i class="far fa-star text-black-500 "></i>';
+                        this.innerHTML = '<i class="far fa-heart text-red-500  text-3xl "></i>';
                     } else {
                         favorites.push(postId);
-                        this.innerHTML = '<i class="fas fa-star text-black-500"></i>';
+                        this.innerHTML = '<i class="fas fa-heart text-red-500  text-3xl"></i>';
                     }
 
                     localStorage.setItem('favorites', JSON.stringify(favorites));
