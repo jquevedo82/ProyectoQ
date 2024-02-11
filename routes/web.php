@@ -32,7 +32,8 @@ Route::middleware('auth')->prefix('posts')->name('posts.')->group(function () {
     Route::post('/', [PostController::class, 'store'])->name('store');
 
     Route::post('/favorites', [PostController::class, 'getFavorites'])->name('getFavorites');
+    Route::get('/search', [PostController::class, 'search'])->name('search');
 });
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show'); //metodo show para mostar el detalle de un recurso
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 require __DIR__ . '/auth.php';

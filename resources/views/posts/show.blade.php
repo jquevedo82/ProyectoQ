@@ -32,15 +32,15 @@
                         <button @click="open = !open" class="bg-gray-200 px-4 py-2 rounded focus:outline-none focus:bg-gray-300">
                             Compartir
                         </button>
-                        <div x-show="open" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg flex flex-col">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl() . '/' . $post->id) }}" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-facebook"></i>Facebook
+                        <div x-show="open" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 divide-y divide-gray-200 rounded-md shadow-lg lg:right-auto lg:left-0">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fab fa-facebook mr-2"></i>Facebook
                             </a>
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl() . '/' . $post->id) }}" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-twitter"></i>Twitter
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fab fa-twitter mr-2"></i>Twitter
                             </a>
-                            <a href="https://www.linkedin.com/shareArticle?url={{ urlencode(request()->fullUrl() . '/' . $post->id) }}" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-linkedin"></i>LinkedIn
+                            <a href="https://www.linkedin.com/shareArticle?url={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fab fa-linkedin mr-2"></i>LinkedIn
                             </a>
                         </div>
                     </div>
